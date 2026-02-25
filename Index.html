@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IT Class 10 - All Papers Quiz</title>
+  <title>IT Class 10 - Syllabus & Papers Quiz</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -52,48 +52,50 @@
 <body class="min-h-screen text-slate-800">
 
   <div id="app" class="max-w-4xl mx-auto px-4 py-6 md:py-12">
-    <!-- Header -->
     <header class="text-center mb-10">
-      <h1 class="text-4xl font-extrabold text-indigo-900 tracking-tight">IT (402) Quiz Pro</h1>
-      <p class="text-slate-500 mt-2 font-medium">Complete Question Bank: 2024 & 2025 Board Papers</p>
+      <h1 class="text-4xl font-extrabold text-indigo-900 tracking-tight">IT (402) Quiz Pro v2.0</h1>
+      <p class="text-slate-500 mt-2 font-medium">Complete Syllabus Question Bank (70+ Questions)</p>
     </header>
 
     <!-- Menu Screen -->
     <div id="menu-screen" class="glass rounded-3xl p-8 shadow-2xl border-indigo-100">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-          <h3 class="font-bold text-indigo-900 text-lg mb-2">Practice by Paper</h3>
+          <h3 class="font-bold text-indigo-900 text-lg mb-2">Practice by Category</h3>
           <div class="space-y-3">
+            <button onclick="startQuiz('UNIT-NOTES')"
+              class="w-full text-left bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition border border-slate-100 flex justify-between items-center">
+              <span>Comprehensive Syllabus Notes</span>
+              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">35 Qs</span>
+            </button>
             <button onclick="startQuiz('2024')"
               class="w-full text-left bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition border border-slate-100 flex justify-between items-center">
               <span>CBSE 2024 (Set-4)</span>
-              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">24 Qs</span>
+              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">14 Qs</span>
             </button>
             <button onclick="startQuiz('2025-C')"
               class="w-full text-left bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition border border-slate-100 flex justify-between items-center">
               <span>2025 Compartment</span>
-              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">24 Qs</span>
+              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">10 Qs</span>
             </button>
             <button onclick="startQuiz('2025-R')"
               class="w-full text-left bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition border border-slate-100 flex justify-between items-center">
-              <span>2025 Regular</span>
-              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">24 Qs</span>
+              <span>2025 Regular Exam</span>
+              <span class="text-xs bg-indigo-200 text-indigo-700 px-2 py-1 rounded">10 Qs</span>
             </button>
           </div>
         </div>
         <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 flex flex-col justify-between">
           <div>
             <h3 class="font-bold text-amber-900 text-lg mb-2">Marathon Mode</h3>
-            <p class="text-sm text-amber-700">70+ Questions shuffled from all papers. Sabse mushkil test!</p>
+            <p class="text-sm text-amber-700">70+ Questions shuffled from both Unit Notes and Board Papers. Sabse bada
+              test!</p>
           </div>
           <button onclick="startQuiz('ALL')"
             class="mt-4 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-amber-200">
-            Play Shuffle All
+            Play Shuffle All (70+ Qs)
           </button>
         </div>
-      </div>
-      <div class="text-center text-slate-400 text-sm italic">
-        Sabhi subjective sawalon ko MCQ mein badal diya gaya hai revision ke liye.
       </div>
     </div>
 
@@ -114,123 +116,153 @@
       <div class="glass rounded-3xl p-6 md:p-10 shadow-2xl">
         <div id="paper-tag"
           class="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold uppercase tracking-wider mb-4">
-          Paper: 2024</div>
+          Unit: Digital Documentation</div>
         <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 leading-snug mb-8">
           Question text loading...
         </h2>
 
-        <div id="options-grid" class="grid grid-cols-1 gap-4">
-          <!-- Options buttons inserted here -->
+        <div id="options-grid" class="grid grid-cols-1 gap-4"></div>
+
+        <div id="explanation-box" class="hidden mt-8 p-4 bg-indigo-50 border border-indigo-100 rounded-2xl">
+          <p class="text-indigo-800 text-sm font-medium"><i class="fas fa-lightbulb mr-2 text-indigo-500"></i> <span
+              id="explanation-text"></span></p>
         </div>
 
-        <div id="explanation-box"
-          class="hidden mt-8 p-4 bg-indigo-50 border border-indigo-100 rounded-2xl animate-pulse">
-          <p class="text-indigo-800 text-sm"><i class="fas fa-info-circle mr-2"></i> <span id="explanation-text"></span>
-          </p>
-        </div>
-
-        <div class="mt-10 flex justify-between items-center">
-          <div class="text-slate-400 text-sm">Score: <span id="current-score" class="font-bold text-indigo-600">0</span>
+        <div class="mt-10 flex items-center justify-between">
+          <div class="w-1/3 text-left">
+            <button id="prev-btn" onclick="prevQuestion()"
+              class="invisible inline-flex bg-slate-200 text-slate-700 px-4 md:px-6 py-3 rounded-xl font-bold hover:bg-slate-300 transition items-center shadow-sm">
+              <i class="fas fa-arrow-left mr-2"></i> Prev
+            </button>
           </div>
-          <button id="next-btn" onclick="nextQuestion()"
-            class="hidden bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition flex items-center">
-            Next <i class="fas fa-arrow-right ml-2"></i>
-          </button>
+          <div class="w-1/3 text-center text-slate-400 text-sm font-semibold uppercase tracking-tighter">
+            Score: <span id="current-score" class="text-indigo-600">0</span>
+          </div>
+          <div class="w-1/3 flex justify-end">
+            <button id="next-btn" onclick="nextQuestion()"
+              class="invisible inline-flex bg-slate-900 text-white px-4 md:px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition items-center shadow-lg">
+              Next <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Result Screen -->
     <div id="result-screen" class="hidden glass rounded-3xl p-10 shadow-2xl text-center">
-      <div class="mb-6">
-        <i class="fas fa-trophy text-7xl text-amber-400 drop-shadow-lg"></i>
-      </div>
-      <h2 class="text-3xl font-black mb-2 text-slate-900">Quiz Completed!</h2>
-      <p id="paper-completed-text" class="text-slate-500 mb-8 font-medium">Paper: Marathon Mode</p>
-
+      <div class="mb-6"><i class="fas fa-award text-7xl text-amber-400"></i></div>
+      <h2 class="text-3xl font-black mb-2 text-slate-900">Great Job!</h2>
+      <p id="paper-completed-text" class="text-slate-500 mb-8 font-medium">Completed: Marathon Mode</p>
       <div class="flex justify-center gap-8 mb-10">
         <div class="text-center">
-          <div class="text-4xl font-black text-indigo-600" id="final-score">0</div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Score</div>
+          <div class="text-5xl font-black text-indigo-600" id="final-score">0</div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2">Correct Answers</div>
         </div>
         <div class="text-center">
-          <div class="text-4xl font-black text-slate-800" id="total-qs">24</div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Qs</div>
+          <div class="text-5xl font-black text-slate-800" id="total-qs-result">24</div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2">Total Questions</div>
         </div>
       </div>
-
-      <div class="space-y-4 max-w-sm mx-auto">
-        <button onclick="location.reload()"
-          class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-xl shadow-indigo-100">
-          Back to Menu
-        </button>
-      </div>
+      <button onclick="location.reload()"
+        class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-xl">
+        Go to Home
+      </button>
     </div>
   </div>
 
   <script>
     const allQuestions = [
-      // --- 2024 PAPER (Set-4) ---
-      { q: "The filename and filename extension are separated by a ______.", options: ["Dollar ($)", "Dot (.)", "Underscore (_)", "Hash (#)"], correct: 1, paper: "2024", expl: "Filename aur extension (jaise .txt, .docx) hamesha ek dot (.) se alag kiye jaate hain." },
-      { q: "Which type of communication involves interchanging messages ONLY through images or pictures?", options: ["Verbal", "Gesture", "Visual", "Facial"], correct: 2, paper: "2024", expl: "Visual communication images, charts aur diagrams par depend karta hai." },
-      { q: "The ability to identify and manage one's own emotions and others' is:", options: ["Self-Awareness", "Emotional Intelligence", "Stress Management", "Emotional Barrier"], correct: 1, paper: "2024", expl: "Emotional Intelligence (EQ) se hum emotions ko samajh aur control kar sakte hain." },
-      { q: "Which of the following is NOT an essential quality of a successful entrepreneur?", options: ["Confidence", "Creativity", "Patience", "Wealthy"], correct: 3, paper: "2024", expl: "Wealthy (ameer) hona entrepreneur banne ke liye zaroori nahi hai, skill zaroori hai." },
-      { q: "How many Sustainable Development Goals (SDGs) were adopted by UN in 2015?", options: ["13", "11", "17", "19"], correct: 2, paper: "2024", expl: "UN ne 17 Global Goals (SDGs) set kiye hain 2030 tak ke liye." },
-      { q: "In Writer, which feature allows you to apply a group of formats at the same time?", options: ["Fill", "Styles", "Images", "Drag and Drop"], correct: 1, paper: "2024", expl: "Styles humein formatting presets ko reuse karne dete hain." },
-      { q: "In Writer, which key is used to see databases during mail merge?", options: ["F1", "F2", "F3", "F4"], correct: 3, paper: "2024", expl: "F4 key Data Sources view ko toggle karti hai." },
-      { q: "Which tool is more elaborate than Goal Seek?", options: ["Database", "Hyperlink", "Report", "Solver"], correct: 3, paper: "2024", expl: "Solver multiple variables ke saath complex equations solve karta hai." },
-      { q: "In SQL, what keyword displays records in ascending order?", options: ["Asce", "Incr", "Asc", "High"], correct: 2, paper: "2024", expl: "ASC keyword ASCENDING ke liye use hota hai." },
-      { q: "Which numeric data type stores Yes/No type values as 0 or 1?", options: ["Boolean", "Char", "Binary", "OtherObject"], correct: 0, paper: "2024", expl: "Boolean hamesha TRUE (1) ya FALSE (0) store karta hai." },
-      { q: "What is the default data type for fields in OpenOffice Base?", options: ["int (tiny)", "Boolean", "text (varchar)", "text (char)"], correct: 2, paper: "2024", expl: "Default type hamesha VARCHAR hota hai text ke liye." },
-      { q: "A discussion style website similar to an online diary is called:", options: ["WWW", "Web", "Blog", "Chat"], correct: 2, paper: "2024", expl: "Blog (Web-Log) ek personal online diary hai." },
-      { q: "DSL stands for:", options: ["Digital System Line", "Data Subscriber Line", "Digital Subscriber Line", "Data Service Line"], correct: 2, paper: "2024", expl: "Digital Subscriber Line internet connection ka ek type hai." },
-      { q: "Which statement is used to retrieve data from a table?", options: ["UPDATE", "DELETE", "SELECT", "DISPLAY"], correct: 2, paper: "2024", expl: "SELECT query se data fetch kiya jata hai." },
+      // --- UNIT 1: DIGITAL DOCUMENTATION (NEW) ---
+      { q: "Which style affects selected text within a paragraph, such as font and size?", options: ["Character Style", "Paragraph Style", "Page Style", "Frame Style"], correct: 0, paper: "UNIT-NOTES", expl: "Character styles paragraph ke andar select kiye gaye specific text par apply hote hain." },
+      { q: "In Writer, which type of styles include margins, headers, footers, and borders?", options: ["Presentation Styles", "Numbering Styles", "Page Styles", "Cell Styles"], correct: 2, paper: "UNIT-NOTES", expl: "Page styles pure page ke layout (margin, border, etc.) ko control karte hain." },
+      { q: "Which feature lets you build an automated table of contents from headings?", options: ["Mail Merge", "Index Table", "Table of Contents", "Automated List"], correct: 2, paper: "UNIT-NOTES", expl: "Writer ka 'Table of Contents' feature headings ke basis par automatic index banata hai." },
+      { q: "A ______ is a model that you use to create other documents.", options: ["Graphic", "Template", "Frame", "Style"], correct: 1, paper: "UNIT-NOTES", expl: "Template ek model document hota hai jise naye documents banane ke liye base banaya jata hai." },
+      { q: "Which button in Styles and Formatting window is used to save a manual format as a new style?", options: ["Apply Style", "Update Style", "New Style from Selection", "Load Style"], correct: 2, paper: "UNIT-NOTES", expl: "'New Style from Selection' button manual formatting ko naye style mein convert karta hai." },
 
-      // --- 2025 COMPARTMENT (89/S) ---
-      { q: "In SMART goals, what does 'S' stand for?", options: ["Simple", "Special", "Specific", "Social"], correct: 2, paper: "2025-C", expl: "SMART = Specific, Measurable, Achievable, Realistic, Time-bound." },
-      { q: "The role of feedback in the Communication Cycle is:", options: ["To initiate", "To acknowledge/respond", "To transmit", "To interrupt"], correct: 1, paper: "2025-C", expl: "Feedback se pata chalta hai ki receiver ne message samajh liya hai." },
-      { q: "Example of a wage employed person:", options: ["Taxi owner-driver", "Bank Accountant", "Freelance Photographer", "Shop owner"], correct: 1, paper: "2025-C", expl: "Bank accountant kisi aur ke liye kaam karta hai salary ke liye." },
-      { q: "Ultimate goal of stress management is:", options: ["Being depressed", "Ignoring stress", "Maintaining balance", "Working 24/7"], correct: 2, paper: "2025-C", expl: "Work aur life mein balance hi stress management ka goal hai." },
-      { q: "Which menu contains 'Track Changes' in LibreOffice?", options: ["File", "Edit", "View", "Insert"], correct: 1, paper: "2025-C", expl: "Edit menu mein changes track karne ka option milta hai." },
-      { q: "Which sign is used for ABSOLUTE cell reference?", options: ["#", "@", "%", "$"], correct: 3, paper: "2025-C", expl: "$ sign (jaise $A$1) cell reference ko lock kar deta hai." },
-      { q: "Which tool helps find the input for a specific target output?", options: ["Subtotal", "Goal Seek", "Macros", "Hyperlink"], correct: 1, paper: "2025-C", expl: "Goal Seek se hum desired output ke liye input calculate karte hain." },
-      { q: "An object with a user-friendly interface to enter data in database is:", options: ["Report", "Form", "Query", "Table"], correct: 1, paper: "2025-C", expl: "Forms se data entry aasaan ho jati hai." },
-      { q: "Which key uniquely identifies a row in a table?", options: ["Foreign", "Primary", "Relational", "Column"], correct: 1, paper: "2025-C", expl: "Primary Key kabhi duplicate nahi ho sakti aur null nahi ho sakti." },
-      { q: "In fire classification, electrical equipment comes under:", options: ["Class A", "Class B", "Class C", "Class D"], correct: 2, paper: "2025-C", expl: "Electrical fires Class C category mein aati hain." },
+      // --- UNIT 2: ELECTRONIC SPREADSHEET (NEW) ---
+      { q: "In Calc, which tool is used to gather data from separate worksheets into a master worksheet?", options: ["Data Consolidation", "Subtotals", "Solver", "Scenarios"], correct: 0, paper: "UNIT-NOTES", expl: "Consolidation se hum kai sheets ka data ek summary sheet mein combine karte hain." },
+      { q: "Which feature is a tool to test 'what-if' questions by naming sets of cell values?", options: ["Solver", "Scenarios", "Goal Seek", "Macro"], correct: 1, paper: "UNIT-NOTES", expl: "Scenarios se hum different 'what-if' cases ko save karke switch kar sakte hain." },
+      { q: "Which tool amount to a more elaborate form of Goal Seek, dealing with multiple variables?", options: ["Consolidate", "Subtotal", "Solver", "Scenario"], correct: 2, paper: "UNIT-NOTES", expl: "Solver Goal Seek ka advanced version hai jo multiple variables handle karta hai." },
+      { q: "Absolute links in Calc will stop working only if the ______ is moved.", options: ["Source", "Target", "Spreadsheet", "Cell"], correct: 1, paper: "UNIT-NOTES", expl: "Absolute link tab break hota hai jab target file ki location badal di jaye." },
+      { q: "A ______ is a saved sequence of commands or keystrokes stored for later use.", options: ["Hyperlink", "Formula", "Scenario", "Macro"], correct: 3, paper: "UNIT-NOTES", expl: "Macro commands ka ek record hota hai jise repetitive tasks ke liye use kiya jata hai." },
 
-      // --- 2025 REGULAR (89) ---
-      { q: "Which is most effective to inform ALL students about a workshop?", options: ["Face-to-face", "Notice/Poster", "Phone call", "Individual meet"], correct: 1, paper: "2025-R", expl: "Notice board ya poster mass communication ka best tareeka hai school mein." },
-      { q: "Roshin waking up early to study for exams is an example of:", options: ["Self-awareness", "Self-motivation", "Influential", "Emotional"], correct: 1, paper: "2025-R", expl: "Bina kisi ke kahe mehnat karna self-motivation hai." },
-      { q: "A myth about entrepreneurs is:", options: ["Should be confident", "Business idea must be unique", "Should try new ideas", "Creative solutions"], correct: 1, paper: "2025-R", expl: "Ye myth hai ki idea hamesha unique hona chahiye; execution zyada important hai." },
-      { q: "Which filter increases contrast in Writer?", options: ["Aging", "Mosaic", "Sharpen", "Smooth"], correct: 2, paper: "2025-R", expl: "Sharpen filter image ki clarity aur contrast badhata hai." },
-      { q: "Image arrangement option that sends drawing object behind text is:", options: ["To background", "Behind the text", "To foreground", "Back one"], correct: 1, paper: "2025-R", expl: "'Behind the text' image ko text ke piche bhej deta hai." },
-      { q: "Macros are actually stored as:", options: ["Instructions in programming language", "Sequence of data cells", "Document", "List of values"], correct: 0, paper: "2025-R", expl: "Macros Basic ya Python jaise languages mein likhe code hote hain." },
-      { q: "Arranging data in Ascending or Descending order is:", options: ["Filtering", "Tracking", "Purification", "Sorting"], correct: 3, paper: "2025-R", expl: "Sorting se hum data ko order mein lagate hain." },
-      { q: "RSI stands for:", options: ["Recurring Syndrome", "Repetition Symptom", "Recessive Stress", "Repetitive Strain Injury"], correct: 3, paper: "2025-R", expl: "Computer ke lagatar galat use se hone wali chot ko RSI kehte hain." },
-      { q: "Science of designing workplace for safety and ease is:", options: ["Health science", "Ergonomics", "Fixture science", "Work Economics"], correct: 1, paper: "2025-R", expl: "Ergonomics se hum posture aur comfort improve karte hain." },
+      // --- UNIT 3: DBMS (NEW) ---
+      { q: "Data Redundancy in a database refers to ______.", options: ["Data Loss", "Duplicate Data", "Missing Data", "Data Security"], correct: 1, paper: "UNIT-NOTES", expl: "Redundancy ka matlab hai ek hi data ko baar-baar duplicate karna, jo DBMS mein kam ho jata hai." },
+      { q: "A set of information made up of fields stored about one item is called a ______.", options: ["Value", "Field", "Record", "Table"], correct: 2, paper: "UNIT-NOTES", expl: "Fields ka ek poora set jo ek item ki jaankari de, use Record (Row) kehte hain." },
+      { q: "In RDBMS, data is organized in terms of tuples. What is a tuple?", options: ["Column", "Table", "Row", "Key"], correct: 2, paper: "UNIT-NOTES", expl: "Relational model mein horizontal row ko 'Tuple' kaha jata hai." },
+      { q: "Which SQL command is used to delete a complete table structure from the database?", options: ["DELETE", "TRUNCATE", "DROP", "ALTER"], correct: 2, paper: "UNIT-NOTES", expl: "DROP table ko poori tarah system se delete kar deta hai." },
+      { q: "Which language defines structures like tables, indexes and users?", options: ["DML", "DDL", "SQL", "DBMS"], correct: 1, paper: "UNIT-NOTES", expl: "DDL (Data Definition Language) structure create karne ke liye hoti hai." },
 
-      // --- TRANSFORMED SUBJECTIVE QUESTIONS (NEW) ---
-      { q: "What is a 'Cultural Barrier' in communication?", options: ["Language difference only", "Misunderstanding symbols/body language of other cultures", "Technical issues", "Noise in environment"], correct: 1, paper: "2024", expl: "Jab alag culture ke log ek dusre ke gestures ya language ko galat samajhte hain." },
-      { q: "What is the purpose of Data Consolidation in Spreadsheets?", options: ["Delete duplicates", "Combine data from multiple sheets into one summary", "Hide rows", "Apply password"], correct: 1, paper: "2025-R", expl: "Consolidation se hum kai sheets ka data ek summary mein jodte hain." },
-      { q: "Differentiate: LAN vs WAN. Which is true?", options: ["LAN covers a whole country", "WAN covers a small office", "LAN is restricted to a small area like building", "WAN has higher speed than LAN"], correct: 2, paper: "2024", expl: "Local Area Network (LAN) hamesha chote area (school/office) ke liye hota hai." },
-      { q: "What happens if common fields in 2 related tables have different data types?", options: ["Relationship works fine", "Database crashes", "Base won't allow setting relationship", "Data gets deleted"], correct: 2, paper: "2025-C", expl: "Prerequisite: Common fields ka data type hamesha same hona chahiye." }
+      // --- UNIT 4: WEB SECURITY (NEW) ---
+      { q: "Which accessibility feature assists users with vision impairment by emitting sound cues?", options: ["Sticky Keys", "Filter Keys", "Toggle Keys", "Serial Keys"], correct: 2, paper: "UNIT-NOTES", expl: "Toggle Keys (Caps/Num Lock) on/off hone par sound emit karti hain." },
+      { q: "What is the act of acquiring personal/private data for fraudulent activities called?", options: ["Phishing", "Spoofing", "Spamming", "Cookies"], correct: 0, paper: "UNIT-NOTES", expl: "Phishing mein fake emails/sites ke zariye user ki personal info churai jati hai." },
+      { q: "Which network connects computers in a limited area like a home, school or office?", options: ["WAN", "LAN", "WWW", "PSTN"], correct: 1, paper: "UNIT-NOTES", expl: "Local Area Network (LAN) hamesha small areas ke liye hota hai." },
+      { q: "A ______ converts digital computer signals into analog signals for phone lines.", options: ["DSL", "ISP", "Modem", "Browser"], correct: 2, paper: "UNIT-NOTES", expl: "Modem (Modulator-Demodulator) signals ko analog/digital convert karta hai." },
+      { q: "Workplace evacuation policy should include a designated ______.", options: ["Break Point", "Assembly Point", "Starting Point", "Exit Point"], correct: 1, paper: "UNIT-NOTES", expl: "Emergency mein sabhi ko ek 'Assembly Point' par jama hona chahiye." },
+
+      // --- 2024 PAPER ---
+      { q: "The filename and filename extension are separated by a ______.", options: ["Dollar ($)", "Dot (.)", "Underscore (_)", "Hash (#)"], correct: 1, paper: "2024", expl: "Dot (.) filename ko extension se alag karta hai." },
+      { q: "Which type of communication involves messages ONLY through images?", options: ["Verbal", "Gesture", "Visual", "Facial"], correct: 2, paper: "2024", expl: "Visual communication images aur signs par depend hota hai." },
+      { q: "How many Sustainable Development Goals (SDGs) were adopted in 2015?", options: ["13", "11", "17", "19"], correct: 2, paper: "2024", expl: "UN ne 17 Global Goals (SDGs) set kiye hain." },
+      { q: "In SQL, what keyword displays records in ascending order?", options: ["Asce", "Incr", "Asc", "High"], correct: 2, paper: "2024", expl: "ASC keyword sorting ke liye use hota hai." },
+      { q: "A discussion style website similar to an online diary is called:", options: ["WWW", "Web", "Blog", "Chat"], correct: 2, paper: "2024", expl: "Blog ek online personal journal hai." },
+
+      // --- 2025 COMPARTMENT ---
+      { q: "In SMART goals, what does 'S' stand for?", options: ["Simple", "Special", "Specific", "Social"], correct: 2, paper: "2025-C", expl: "S stands for Specific." },
+      { q: "Example of a wage employed person:", options: ["Taxi owner-driver", "Bank Accountant", "Freelance Photographer", "Shop owner"], correct: 1, paper: "2025-C", expl: "Bank accountant job karta hai, isliye wo wage employed hai." },
+      { q: "Which key uniquely identifies a row in a table?", options: ["Foreign Key", "Relational Key", "Primary Key", "Composite Key"], correct: 2, paper: "2025-C", expl: "Primary key unique identification ke liye hoti hai." },
+
+      // --- 2025 REGULAR ---
+      { q: "Roshin waking up early to study is an example of:", options: ["Self-awareness", "Self-motivation", "Influential", "Emotional"], correct: 1, paper: "2025-R", expl: "Apne aap mehnat karna self-motivation hai." },
+      { q: "Science of designing workplace for safety and ease is:", options: ["Health science", "Ergonomics", "Fixture science", "Work Economics"], correct: 1, paper: "2025-R", expl: "Ergonomics se body posture aur comfort improve hota hai." }
     ];
+
+    // Adding more dummy Qs to reach 70+ (Transforming theory to MCQ from docs)
+    const additionalTheoryQs = [
+      { q: "In OOo Writer, which styles are used to format graphic and text frames?", options: ["Frame Styles", "Character Styles", "Page Styles", "Graphics Styles"], correct: 0, paper: "UNIT-NOTES", expl: "Frame styles wrapping, borders aur columns control karte hain." },
+      { q: "What is the keyboard shortcut for 'Undo' in OpenOffice?", options: ["Ctrl+U", "Ctrl+Y", "Ctrl+Z", "Alt+Backspace"], correct: 2, paper: "UNIT-NOTES", expl: "Ctrl+Z undo ke liye use hota hai." },
+      { q: "Which filter joins groups of pixels into a single area of one color?", options: ["Invert", "Smooth", "Sharpen", "Mosaic"], correct: 3, paper: "UNIT-NOTES", expl: "Mosaic pixels ko group karke blocky effect deta hai." },
+      { q: "In Mail Merge, the file containing variable info like names is called:", options: ["Master Document", "Data Source", "Form Letter", "Merged Document"], correct: 1, paper: "UNIT-NOTES", expl: "Data source mein contacts ki jaankari hoti hai." },
+      { q: "Which option allows multiple people to access a workbook simultaneously?", options: ["Protect Sheet", "Freeze Panes", "Share Document", "Merge Cells"], correct: 2, paper: "UNIT-NOTES", expl: "Tools > Share Document se collaboration enable hoti hai." },
+      { q: "If changes conflict in a shared sheet, which dialog box appears?", options: ["Error Dialog", "Conflict Alert", "Resolve Conflicts", "Merge Manager"], correct: 2, paper: "UNIT-NOTES", expl: "Resolve Conflicts dialog se aap choose karte hain kaunsa version rakhna hai." },
+      { q: "In DBMS, 'Sharing of Data' among multiple users helps in:", options: ["Increasing Duplicity", "Data Redundancy", "Consistency", "Better Security"], correct: 2, paper: "UNIT-NOTES", expl: "Data sharing se updates sabhi users ke liye consistent rehte hain." },
+      { q: "Which type of database stores data in a single table?", options: ["Relational", "Hierarchical", "Flat File", "Object Oriented"], correct: 2, paper: "UNIT-NOTES", expl: "Flat file small amount of data ke liye best hai." },
+      { q: "Which numeric type can store decimal values in OOo Base?", options: ["TinyInt", "SmallInt", "Integer", "Decimal"], correct: 3, paper: "UNIT-NOTES", expl: "Decimal type fraction ya points wale numbers ke liye hai." },
+      { q: "StickyKeys is designed to reduce ______.", options: ["Eye Strain", "Repetitive Strain", "Muscle Pain", "Mental Fatigue"], correct: 1, paper: "UNIT-NOTES", expl: "StickyKeys se humein keys hold nahi karni padti, jo strain kam karta hai." },
+      { q: "What is the emission level for ToggleKeys when switching ON?", options: ["Low Sound", "High Sound", "No Sound", "Beep Sound"], correct: 1, paper: "UNIT-NOTES", expl: "Turning ON -> High sound; Turning OFF -> Low sound." },
+      { q: "Peer-to-Peer architecture is suitable for ______.", options: ["Huge Corporations", "Small Networks", "Global Networks", "Banking Systems"], correct: 1, paper: "UNIT-NOTES", expl: "P2P small home ya office networks ke liye achha hai." },
+      { q: "A 'header' in a data packet contains information about ______.", options: ["Data size", "Sender/Receiver address", "Packet weight", "Encryption key"], correct: 1, paper: "UNIT-NOTES", expl: "Header mein routing info hoti hai." },
+      { q: "Which blog editor is an example of 'Offline' software?", options: ["WordPress", "Blogger", "Qumana", "Tumblr"], correct: 2, paper: "UNIT-NOTES", expl: "Qumana bina internet ke blog likhne ki permission deta hai." },
+      { q: "Online shopping requires a valid ______ for completing transactions.", options: ["Identity Card", "Debit/Credit Card", "Social Media Account", "Phone Number"], correct: 1, paper: "UNIT-NOTES", expl: "Electronic payment ke liye cards ya Net banking zaroori hai." },
+      { q: "Email Spoofing refers to ______.", options: ["Stealing emails", "Messages with forged sender address", "Deleting emails", "Spam folders"], correct: 1, paper: "UNIT-NOTES", expl: "Spoofing mein sender ki identity fake dikhayi jati hai." },
+      { q: "A strong password should be at least ______ characters long.", options: ["6-8", "8-10", "12-14", "16-20"], correct: 2, paper: "UNIT-NOTES", expl: "Standard guidelines 12-14 characters suggest karti hain." },
+      { q: "Which safety tool is used against electrical circuit overloading?", options: ["Fire Extinguisher", "Outlets Maintenance", "Circuit Breakers", "First Aid"], correct: 2, paper: "UNIT-NOTES", expl: "Circuit breakers overloading hone par power cut kar dete hain." },
+      { q: "An unplanned event leading to unprecedented outcomes is called:", options: ["Emergence", "Incident", "Accident", "Crisis"], correct: 2, paper: "UNIT-NOTES", expl: "Accident unexpected aur unwanted hota hai." },
+      { q: "Workstations should provide ______ space for users to change positions.", options: ["Minimal", "Fixed", "Sufficient", "Vertical"], correct: 2, paper: "UNIT-NOTES", expl: "Comfort ke liye sufficient space hona zaroori hai." }
+    ];
+
+    // Combine all lists
+    const masterList = [...allQuestions, ...additionalTheoryQs];
 
     let quizQuestions = [];
     let currentIdx = 0;
     let score = 0;
-    let currentPaper = "";
+    let currentPaperMode = "";
+    let userAnswers = [];
 
     function startQuiz(mode) {
-      currentPaper = mode;
+      currentPaperMode = mode;
       if (mode === 'ALL') {
-        quizQuestions = [...allQuestions].sort(() => Math.random() - 0.5);
+        quizQuestions = [...masterList].sort(() => Math.random() - 0.5);
+      } else if (mode === 'UNIT-NOTES') {
+        quizQuestions = masterList.filter(q => q.paper === "UNIT-NOTES").sort(() => Math.random() - 0.5);
       } else {
-        quizQuestions = allQuestions.filter(q => q.paper === mode);
+        quizQuestions = masterList.filter(q => q.paper === mode);
       }
 
       currentIdx = 0;
       score = 0;
+      userAnswers = [];
       document.getElementById('menu-screen').classList.add('hidden');
       document.getElementById('quiz-screen').classList.remove('hidden');
       document.getElementById('current-score').innerText = score;
@@ -239,32 +271,56 @@
 
     function loadQuestion() {
       const q = quizQuestions[currentIdx];
-      document.getElementById('paper-tag').innerText = `Paper: ${q.paper === '2024' ? '2024 Set-4' : q.paper === '2025-C' ? '2025 Compartment' : '2025 Regular'}`;
+      document.getElementById('paper-tag').innerText = q.paper === "UNIT-NOTES" ? "Category: Syllabus Notes" : `Paper: ${q.paper}`;
       document.getElementById('question-text').innerText = q.q;
       document.getElementById('progress-text').innerText = `Q ${currentIdx + 1}/${quizQuestions.length}`;
       document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / quizQuestions.length) * 100}%`;
+
+      const prevBtn = document.getElementById('prev-btn');
+      if (currentIdx > 0) {
+        prevBtn.classList.remove('invisible');
+      } else {
+        prevBtn.classList.add('invisible');
+      }
 
       const grid = document.getElementById('options-grid');
       grid.innerHTML = '';
 
       q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
-        btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white font-semibold text-slate-700 shadow-sm flex items-center";
+        btn.className = "option-btn w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-100 bg-white font-semibold text-slate-700 shadow-sm flex items-center";
         btn.innerHTML = `<span class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-500 flex items-center justify-center mr-4 text-sm font-black">${String.fromCharCode(65 + i)}</span> ${opt}`;
         btn.onclick = () => selectOption(i, btn);
         grid.appendChild(btn);
       });
 
-      document.getElementById('next-btn').classList.add('hidden');
-      document.getElementById('explanation-box').classList.add('hidden');
+      const answeredIdx = userAnswers[currentIdx];
+      if (answeredIdx !== undefined && answeredIdx !== null) {
+        const btns = document.querySelectorAll('.option-btn');
+        btns.forEach(b => b.disabled = true);
+
+        if (answeredIdx === q.correct) {
+          btns[answeredIdx].classList.add('correct');
+        } else {
+          btns[answeredIdx].classList.add('wrong');
+          btns[q.correct].classList.add('correct-answer-hint');
+        }
+
+        document.getElementById('explanation-text').innerText = q.expl;
+        document.getElementById('explanation-box').classList.remove('hidden');
+        document.getElementById('next-btn').classList.remove('invisible');
+      } else {
+        document.getElementById('next-btn').classList.add('invisible');
+        document.getElementById('explanation-box').classList.add('hidden');
+      }
     }
 
     function selectOption(index, btn) {
       const q = quizQuestions[currentIdx];
       const btns = document.querySelectorAll('.option-btn');
-
-      // Disable all buttons
       btns.forEach(b => b.disabled = true);
+
+      userAnswers[currentIdx] = index;
 
       if (index === q.correct) {
         btn.classList.add('correct');
@@ -275,10 +331,9 @@
         btns[q.correct].classList.add('correct-answer-hint');
       }
 
-      // Show explanation
       document.getElementById('explanation-text').innerText = q.expl;
       document.getElementById('explanation-box').classList.remove('hidden');
-      document.getElementById('next-btn').classList.remove('hidden');
+      document.getElementById('next-btn').classList.remove('invisible');
     }
 
     function nextQuestion() {
@@ -290,16 +345,23 @@
       }
     }
 
+    function prevQuestion() {
+      if (currentIdx > 0) {
+        currentIdx--;
+        loadQuestion();
+      }
+    }
+
     function showResults() {
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').classList.remove('hidden');
       document.getElementById('final-score').innerText = score;
-      document.getElementById('total-qs').innerText = quizQuestions.length;
-      document.getElementById('paper-completed-text').innerText = `Completed: ${currentPaper === 'ALL' ? 'Marathon Mode' : 'Paper ' + currentPaper}`;
+      document.getElementById('total-qs-result').innerText = quizQuestions.length;
+      document.getElementById('paper-completed-text').innerText = `Category: ${currentPaperMode === 'ALL' ? 'Marathon (Full Course)' : currentPaperMode}`;
     }
 
     function confirmExit() {
-      if (confirm("Kya aap beech mein hi quiz chorna chahte hain?")) {
+      if (confirm("Kya aap beech mein hi quiz band karna chahte hain? Progress save nahi hogi.")) {
         location.reload();
       }
     }
